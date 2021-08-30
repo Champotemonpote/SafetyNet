@@ -1,8 +1,18 @@
 package com.SafetyNet.Alerts.service;
 
+import com.SafetyNet.Alerts.model.FireStation;
+import com.SafetyNet.Alerts.model.Person;
+import com.SafetyNet.Alerts.repository.PersonRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FireStationService {
 
-    public List<String> findPhoneNumbersByStationNumber(int number) {
+
+
+
+    public List<String> findAllPhoneNumbersByFireStation(String fireStation) {
 
         List<String> result = new ArrayList<>();
 

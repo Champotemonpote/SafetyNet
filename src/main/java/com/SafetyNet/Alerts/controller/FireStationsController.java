@@ -8,6 +8,13 @@ import java.util.List;
 
 public class FireStationsController {
 
+    private final FireStationsController fireStationService;
+
+    public FireStationsController(FireStationsController fireStationService) {
+        this.fireStationService = fireStationService;
+
+    }
+
     @RequestMapping(value = "phoneAlert", method = RequestMethod.GET)
     public List<String> phoneNumbers(@RequestParam(name = "fireStation") String fireStation) {
 
