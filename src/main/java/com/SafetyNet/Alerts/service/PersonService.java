@@ -22,9 +22,9 @@ public class PersonService {
         return this.personRepository.findAllPersons().stream().filter(p -> p.getCity().equals(city)).map(p -> p.getEmail()).collect(Collectors.toList());
     }
 
-    public List<String> findAllPhoneNumbersByFireStation(String fire) {
+    public List<String> findAllPhoneNumbersByFireStation(String fireStation) {
 
-        return this.personRepository.findAllPersons().stream().filter(p -> p.getCity().equals(city)).map(p -> p.getEmail()).collect(Collectors.toList());
+        return this.personRepository.findAllNumbers().stream().filter(p -> p.getFireStation().equals(fireStation)).map(p -> p.getNumber()).collect(Collectors.toList());
     }
 
 
