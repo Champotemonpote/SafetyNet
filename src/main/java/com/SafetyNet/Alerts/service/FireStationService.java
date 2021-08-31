@@ -2,12 +2,29 @@ package com.SafetyNet.Alerts.service;
 
 import com.SafetyNet.Alerts.model.FireStation;
 import com.SafetyNet.Alerts.model.Person;
+import com.SafetyNet.Alerts.repository.FireStationRepository;
+import com.SafetyNet.Alerts.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class FireStationService {
+
+    private final FireStationRepository fireStationRepository;
+    private final PersonRepository personRepository;
+
+    @Autowired
+
+    public FireStationService(@Qualifier("fire") FireStationRepository fireStationRepository, PersonRepository personRepository) {
+        this.fireStationRepository = fireStationRepository;
+        this.personRepository = personRepository;
+    }
+
 
     public List<String> findPhoneNumbersByStationNumber(String number) {
 
@@ -15,12 +32,10 @@ public class FireStationService {
 
         List<FireStation> fireStations = fireStationRepository.findAllFireStationsAddressByNumber(number);
 
-
         List<Person> persons = personRepository.findAllPersons();
 
-        // make a third list and put the addresses inside
         for (Person person : persons) {
-            if (personsContainsFirestationAddress(fireStations, person)) {
+            if (personsContainsFireStationAddress(fireStations, person)) {
                 result.add(person.getPhone());
             }
         }
@@ -28,14 +43,7 @@ public class FireStationService {
         return result;
 
     }
-    public List<Person> findAllPersons() {
 
-        return dataHandler.getData().getPersons();
-    }
-    public List<FireStation> findAllFireStationsAddressByNumber(Integer number) {
-
-        return dataHandler.getData().getFirestations().stream().filter(p -> p.getStation().equals(number.toString())).collect(Collectors.toList());
-    }
     private boolean personsContainsFireStationAddress(List<FireStation> fireStations, Person person) {
         for (FireStation fireStation : fireStations) {
             if (fireStation.getAddress().equals(person.getAdress())) {

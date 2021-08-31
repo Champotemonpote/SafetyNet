@@ -4,24 +4,26 @@ import com.SafetyNet.Alerts.service.FireStationService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 public class FireStationsController {
 
-    private final FireStationService fireStationService;
+    @RestController
+    public class FireStationController {
+        private final FireStationService fireStationService;
 
-    public FireStationsController(FireStationService fireStationService) {
-        this.fireStationService = fireStationService;
+        public FireStationController(FireStationService fireStationService) {
+            this.fireStationService = fireStationService;
+        }
+
+        @RequestMapping(value = "phoneAlert", method = RequestMethod.GET)
+        List<String> listPhones(@RequestParam(name = "firestation") String number) {
+
+            return this.fireStationService.findPhoneNumbersByStationNumber(number);
+
+        }
 
     }
-
-    //Get a number list
-    @RequestMapping(value = "phoneAlert", method = RequestMethod.GET)
-    public List<String> findAllPhoneNumbersByFireStation(@RequestParam(name = "fireStation") String fireStation) {
-
-        return this.fireStationService.findPhoneNumbersByStationNumber(fireStation);
-
-    }
-
 }
