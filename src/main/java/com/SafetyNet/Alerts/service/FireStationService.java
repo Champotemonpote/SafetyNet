@@ -2,17 +2,14 @@ package com.SafetyNet.Alerts.service;
 
 import com.SafetyNet.Alerts.model.FireStation;
 import com.SafetyNet.Alerts.model.Person;
-import com.SafetyNet.Alerts.repository.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FireStationService {
 
-
-
-
-    public List<String> findAllPhoneNumbersByFireStation(String fireStation) {
+    public List<String> findPhoneNumbersByStationNumber(String number) {
 
         List<String> result = new ArrayList<>();
 
@@ -31,18 +28,15 @@ public class FireStationService {
         return result;
 
     }
-
     public List<Person> findAllPersons() {
 
         return dataHandler.getData().getPersons();
     }
-
     public List<FireStation> findAllFireStationsAddressByNumber(Integer number) {
 
         return dataHandler.getData().getFirestations().stream().filter(p -> p.getStation().equals(number.toString())).collect(Collectors.toList());
     }
-
-    private boolean personsContainsFirestationAddress(List<FireStation> fireStations, Person person) {
+    private boolean personsContainsFireStationAddress(List<FireStation> fireStations, Person person) {
         for (FireStation fireStation : fireStations) {
             if (fireStation.getAddress().equals(person.getAdress())) {
                 return true;
