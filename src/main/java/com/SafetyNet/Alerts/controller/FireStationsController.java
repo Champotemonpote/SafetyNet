@@ -15,12 +15,12 @@ public class FireStationsController {
 
     }
 
+    //Get a number list
     @RequestMapping(value = "phoneAlert", method = RequestMethod.GET)
-    public List<String> phoneNumbers(@RequestParam(name = "fireStation") String fireStation) {
+    public List<String> findAllPhoneNumbersByFireStation(@RequestParam(name = "fireStation") String fireStation) {
 
         return this.fireStationService.findAllPhoneNumbersByFireStation(fireStation);
 
     }
-
 
 }
